@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include "item.h"
 #include <string>
 
@@ -13,9 +14,11 @@ int main(){
     std::cout << "Bienvenue dans votre inventaire" << std::endl;
     while (1)
     {
+        inventaire.afficher_item();
         std::cout << "Que voulez vous faire:" << std::endl;
         std::cout << "1-Ajouter un item" << std::endl;
         std::cout << "2-liberer toute la liste" << std::endl;
+        std::cout << "3-Supprimer un item" << std::endl;
         std::cin >> choice;
         if (choice == 1)
         {
@@ -29,12 +32,17 @@ int main(){
         }else if (choice == 2)
         {
             inventaire.remove_all();
+        }else if (choice == 3)
+        {
+            std::cout << "Entrer le nom de l'item à supprimer: " << std::endl;
+            std::cin >> nom;
+            inventaire.remove_element(nom);
         }
         else
         {
             break;
         }
-        inventaire.afficher_item();
+        system("cls");
     }
     inventaire.clean_inventory();
     return 0;

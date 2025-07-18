@@ -24,8 +24,7 @@ class InventoryList
             head->name = Newitem->name;
             head->quantity = Newitem->quantity;
             head->symbol = Newitem->symbol;
-        }else
-        {
+        }else{
             while (head->next != nullptr)
             {
                 head = head->next;   
@@ -36,23 +35,49 @@ class InventoryList
 
     void remove_element(std:: string nom){
         InventoryList* current = this;  
+        InventoryList* previous = nullptr;
         int position = 0;
+
         if (this->quantity == -1)
         {
-            std::cout << "la liste est vide aucun element a supprimer" << std::endl;
+            std::cout << "la liste est vide aucun element à supprimer" << std::endl;
+            return;
+        }else if(this->name == nom)
+        {
+            if (this->next == nullptr)
+            {
+                this->quantity = -1;
+                this->symbol = -1;
+                this->name = "\0";
+                this->next = nullptr;
+            }else
+            {
+                current = this->next;
+                this->quantity = current->quantity;
+                this->symbol = current->symbol;
+                this->name = current->name;
+                this->next = current->next;
+                delete current;
+            }
             return;
         }
+
         while (current != nullptr)
         {
             if (current->name == nom)
             {
-                current->name = current->next->name;
-                current->quantity = current->next->quantity;
-                current->symbol = current->next->symbol;
-                current->next = current->next->next;
+                previous->next = current->next;
+                std::cout<<"l'élément à la position "<< position << " ...supprimer" <<std::endl;
+                delete current;
+                break;
             }
+            previous = current;
             current = current->next;
             position++;
+        }
+        if (current == nullptr)
+        {
+            std::cout<<"l'élément est absent de la liste" <<std::endl;
         }
     }
 
